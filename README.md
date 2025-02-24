@@ -44,7 +44,7 @@ author: 某23级学生
 如果你拥有`git`的话，可以打开命令行，跳转到你想下载的目录下面，然后输入如下命令：
 
 ```SHELL
-git clone https://github.com/C163q/NJUPT_algorithm_class_experiment.git
+git clone https://github.com/C163q/NJUPT_algorithm_class.git
 ```
 
 如果没有的话，可以点击右上角绿色的`code`按钮，然后点击`Download ZIP`以下载。
