@@ -1,4 +1,4 @@
-/**
+﻿/**
  * encoded in UTF-8 with BOM
  * 题目：写一个递归算法和一个迭代算法计算二项式系数：...
  * 参阅：无
@@ -14,9 +14,7 @@ unsigned binomial_coefficient_1(unsigned m, unsigned n) {
 
 // solution（迭代）
 unsigned binomial_coefficient_2(unsigned m, unsigned n) {
-    unsigned factorial_n = 1;
-    unsigned factorial_m = 1;
-    unsigned factorial_n_m = 1;
+    unsigned factorial_n = 1, factorial_m = 1, factorial_n_m = 1;
     for (unsigned i = 2; i <= n; ++i) factorial_n *= i;
     for (unsigned i = 2; i <= m; ++i) factorial_m *= i;
     for (unsigned i = 2; i <= n - m; ++i) factorial_n_m *= i;
