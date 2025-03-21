@@ -99,7 +99,7 @@ void SortableList::Swap(int i, int j) noexcept {
 int SortableList::Partition(int left, int right) noexcept{
     int i = left, j = right + 1;
     do {
-        do i++; while (/*i <= right &&*/ l[i] < l[left]);   // 前者防止越界，这在实验说明内没有给出
+        do i++; while (i <= right && l[i] < l[left]);   // 前者防止越界，这在实验说明内没有给出
         do j--; while (l[j] > l[left]);
         if (i < j) Swap(i, j);
     } while (i < j);
@@ -139,7 +139,7 @@ int main() {
 }
 
 /**
- * 测试用例（第一次输入是测试MergeSort的，第二次输入是测试QuickSort的）：
+ * 测试用例1（第一次输入是测试MergeSort的，第二次输入是测试QuickSort的）：
  * << 20 40 57 66 69 77 10 87 60 18
  * >> 排序前的序列：20 40 57 66 69 77 10 87 60 18
  * >> 排序后的序列：10 18 20 40 57 60 66 69 77 87
@@ -148,6 +148,7 @@ int main() {
  * >> 排序后的序列：1 2 3 4 5 6 7 8 9 10
  * 注意：实验说明内的QuickSort没有边界检查，会导致上述数据排序时出现越界访问，此处已修正。
  * 
+ * 测试用例2：
  * << -57 -91 55 -2 37 -6 73 -66 4 2
  * >> 排序前的序列：-57 -91 55 -2 37 -6 73 -66 4 2
  * >> 排序后的序列：-91 -66 -57 -6 -2 2 4 37 55 73
