@@ -4,18 +4,18 @@
  *      找出N个元素集合S中的第k个最小的元素，使其在线性时间内解决。
  * 参阅：
  *      语言基础补充(file://./../../reference/cpp.md#语言基础补充)
+ *      迭代器(file://./../../reference/cpp.md#迭代器)
  */
 
 #include<iostream>
 #include<utility>
-#include<exception>
 #include<algorithm>
-#include<cmath>
+#include<iterator>
 #include<vector>
 
 /**
  * 仍然使用题目给出的可排序表类SortableList。
- * 使用题目给出的模板，仅在十分简单的地方使用标准库。
+ * 使用题目给出的模板，允许使用标准库。
  */
 class SortableList {
 public:
@@ -41,85 +41,29 @@ public:
     }
 
 private:
-    int Select(int k, int left, int right, int r);  // right: 最后一个元素的索引
-    void InsertSort(int left, int right);
-
-    void Swap(int i, int j);
-
-    int Partition(int left, int right) noexcept;
-
-private:
     int* l;
     int maxSize;
     int n;
 };
 
 void SortableList::Input(int count) {
-    int index = 0;
-    count = std::min(count, maxSize);
-    int ct = count;
-    while (ct--) {
-        std::cin >> l[index++];
-    }
+    count = std::max(0, std::min(maxSize, count));
+    // std::clamp()是C++17更新的，此处只能使用这种方法替代。
+    std::copy_n(std::istream_iterator<int>(std::cin), count, begin());
     n = count;
 }
 
 void SortableList::Output() {
-    for (int i = 0; i < n; ++i) {
-        std::cout << l[i] << ' ';
-    }
-}
-
-void SortableList::InsertSort(int left, int right) {
-    for (int i = left + 1; i < right + 1; ++i) {
-        int tmp = l[i];
-        int pos = i;
-        for (; pos > left; --pos) {
-            if (l[pos - 1] <= tmp) break;
-            else l[pos] = l[pos - 1];
-        }
-        l[pos] = tmp;
-    }
-}
-
-void SortableList::Swap(int i, int j) {
-    std::swap(l[i], l[j]);
-}
-
-int SortableList::Partition(int left, int right) noexcept {
-    int i = left, j = right + 1;
-    do {
-        do i++; while (i <= right && l[i] < l[left]);
-        do j--; while (l[j] > l[left]);
-        if (i < j) Swap(i, j);
-    } while (i < j);
-    Swap(left, j);
-    return j;
+    std::copy(begin(), end(), std::ostream_iterator<int>(std::cout, " "));
 }
 
 int SortableList::Select(int k) {
-    if (n <= 0 || k > n || k <= 0) throw std::out_of_range("out of index!");
-    int j = Select(k, 0, n - 1, 5);
-    return l[j];
+    if (k <= 0 || k > n) throw std::out_of_range("out of index!");
+    auto select = begin() + k - 1;
+    std::nth_element(begin(), select, end());
+    return *select;
 }
 
-int SortableList::Select(int k, int left, int right, int r) {
-    int n = right - left + 1;
-    if (n <= r) {
-        InsertSort(left, right);
-        return left + k - 1;        
-    }
-    for (int i = 0; i < n / r; ++i) {
-        InsertSort(left + i * r, left + (i + 1) * r - 1);
-        Swap(left + i, left + i * r + (int)std::ceil((double)r / 2) - 1);
-    }
-    int j = Select((int)ceil((double)n / r / 2), left, left + (n / r) - 1, r);
-    Swap(left, j);
-    j = Partition(left, right);
-    if (k == j - left + 1) return j;
-    else if (k < j - left + 1) return Select(k, left, j - 1, r);
-    else return Select(k - (j - left + 1), j + 1, right, r);
-}
 
 int main() {
     int n = 100;
