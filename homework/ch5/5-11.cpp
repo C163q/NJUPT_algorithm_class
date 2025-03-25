@@ -15,6 +15,7 @@
 // 由于这道题不要求写代码，因此不作标准库的使用限制。
 // 以下程序用于自动生成快速排序的过程的序列。
 
+// 不使用标准库std::partition()的原因是，标准库的实现和书上的实现不一样，而阅卷人只认书上的。
 template<typename RanIt>
 RanIt partition(RanIt left, RanIt right) {  // 就是书上普通的partition
     auto begin = left;
