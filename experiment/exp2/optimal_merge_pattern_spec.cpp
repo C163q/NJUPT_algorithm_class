@@ -3,8 +3,6 @@
  * 题目：采用贪心法进行两路合并最佳模式
  * 参阅：
  *      语言基础补充(file://./../../reference/cpp.md#语言基础补充)
- *      迭代器(file://./../../reference/cpp.md#迭代器)
- *      基于范围的for循环(file://./../../reference/cpp.md#基于范围的for循环)
  */
 
 #include<iostream>
@@ -49,8 +47,8 @@ private:
         tree_node& operator=(tree_node&& other) noexcept {
             if (this == std::addressof(other)) return *this;
             element = other.element;
-            left = std::move(left);
-            right = std::move(right);
+            left = std::move(other.left);
+            right = std::move(other.right);
             return *this;
         }
     };
