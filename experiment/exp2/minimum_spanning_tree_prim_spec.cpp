@@ -25,6 +25,10 @@
  *      | 这个做法和上面的做法又不一样，让人摸不着头脑，因此仍然会修改该函数定义。
  */
 
+/**
+ * 本文件实现prim算法，kruskal算法在另一个文件中。
+ */
+
 // 用邻接表法表示的（无向）图。原本题目给出的做法是手动管理内存的，这里使用标准库。
 class graph {
 public:
@@ -40,7 +44,7 @@ private:
 public:
     graph() = default;  // 不用这个
     ~graph() = default;
-    graph(size_t size) : data(size) {}
+    explicit graph(size_t size) : data(size) {}
     graph(const graph&) = delete;   // 图方便，不允许复制构造
     graph& operator=(const graph&) = delete;
 
@@ -132,3 +136,7 @@ int main() {
     test_algorithm();
 }
 
+/**
+ * >> nearest: [0, 2, 0, 5, 1, 2]
+ * >> lowcost: [0, 5, 1, 2, 3, 4]
+ */
