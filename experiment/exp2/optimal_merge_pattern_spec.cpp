@@ -117,7 +117,7 @@ merge_tree optimal_merge_pattern(const std::vector<size_t>& weights /*权值数�
 // 测试函数
 void test_algorithm(const std::vector<size_t>& weights) {
     auto res = optimal_merge_pattern(weights);
-    res.print();
+    res.print();    // 先序遍历得到的树
     std::cout << std::endl;
 }
 
